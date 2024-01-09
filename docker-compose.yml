@@ -1,0 +1,36 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: /AFTAS-Angular
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+
+  backend:
+    build:
+      context: /AFTAS-Spring-Boot
+    depends_on:
+      - database
+    ports:
+      - "8080:8080"
+
+  database:
+    image: mysql:8.2.0
+    volumes:
+      - ./config/mysql:/etc/mysql/conf.d
+    #   - ~/volumes/jhipster/nouveauDossier/mysql/:/var/lib/mysql/
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=nouveaudossier
+    # If you want to expose these ports outside your dev PC,
+    # remove the "127.0.0.1:" prefix
+    ports:
+      - 127.0.0.1:3306:3306
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    healthcheck:
+      test: ['CMD', 'mysql', '-e', 'SHOW DATABASES;']
+      interval: 5s
+      timeout: 5s
+      retries: 10
