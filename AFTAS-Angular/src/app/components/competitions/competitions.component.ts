@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { Member } from '../../core/models/member';
 import { RouterLink } from '@angular/router';
 import { CCompetitionPage } from '../../core/models/competitionPage';
-import { PaginationComponent } from '../pagination/pagination.component';
 import { Flowbite } from '../../core/config/flowbite-config';
 // reactive forms
 
@@ -18,7 +17,6 @@ import { Flowbite } from '../../core/config/flowbite-config';
   standalone: true,
   imports: [
     FormsModule,
-    PaginationComponent,
     ReactiveFormsModule,
     RouterLink,
     CommonModule
