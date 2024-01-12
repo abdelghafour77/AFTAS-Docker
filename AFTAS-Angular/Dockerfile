@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:20-alpine as build
+FROM node:18.18.2 as build
 
 # Set the working directory
 WORKDIR /app
@@ -8,19 +8,19 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install -g npm@latest
+RUN npm install 
 
 # Copy the entire project to the working directory
 COPY . .
 
 # Build the Angular app
-RUN npm run build --prod
+RUN npm run build 
 
 # Use a lightweight Nginx image to serve the Angular app
-FROM nginx:alpine
+FROM nginx:stable
 
-COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/AFTAS-Angular /usr/share/nginx/html
+# COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist/aftas /usr/share/nginx/html
 
 # Copy the built Angular app to the Nginx public directory
 # COPY --from=build /app/dist/AFTAS-Angular /usr/share/nginx/html
