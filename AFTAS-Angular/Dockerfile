@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:stable
 
 # COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/aftas /usr/share/nginx/html
+COPY --from=build /app/dist/aftas/browser/ /usr/share/nginx/html
 
 # Copy the built Angular app to the Nginx public directory
 # COPY --from=build /app/dist/AFTAS-Angular /usr/share/nginx/html
